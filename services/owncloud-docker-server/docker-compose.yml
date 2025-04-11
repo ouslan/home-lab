@@ -26,6 +26,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
     volumes:
       - ./files:/mnt/data
 
@@ -45,6 +47,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
     volumes:
       - ./mysql:/var/lib/mysql
 
@@ -60,3 +64,5 @@ services:
       retries: 5
     volumes:
       - ./redis:/data
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"

@@ -21,6 +21,8 @@ services:
       - '5050:8080'
     depends_on:
       - db
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
   db:
     image: mariadb:lts
     hostname: db
@@ -29,6 +31,8 @@ services:
       - firefly_iii
     restart: always
     env_file: .db.env
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
     volumes:
       - firefly_iii_db:/var/lib/mysql
 
@@ -44,6 +48,8 @@ services:
     depends_on:
       - app
     env_file: .importer.env
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
 
   cron:
     #
@@ -61,6 +67,8 @@ services:
       && crond -f -L /dev/stdout"
     networks:
       - firefly_iii
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
 volumes:
    firefly_iii_upload:
    firefly_iii_db:

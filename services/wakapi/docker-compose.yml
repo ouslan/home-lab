@@ -9,3 +9,5 @@ services:
     volumes:
       - ./wakapi_data:/data
     restart: always
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"

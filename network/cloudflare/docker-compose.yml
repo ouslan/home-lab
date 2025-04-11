@@ -6,3 +6,5 @@ services:
     command: tunnel run
     environment:
       - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"

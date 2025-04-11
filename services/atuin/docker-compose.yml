@@ -15,3 +15,5 @@ services:
       ATUIN_SYNC_ADDRESS: "https://atuin.ouslan.me/"
       ATUIN_DB_URI: postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@db/atuin
       RUST_LOG: info,atuin_server=debug
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
