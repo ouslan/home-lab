@@ -15,3 +15,9 @@ services:
       RUST_LOG: info,atuin_server=debug
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+    - postgres_network
+
+networks:
+  postgres_network:
+    external: true
