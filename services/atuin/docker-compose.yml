@@ -5,8 +5,6 @@ services:
     command: server start
     volumes:
       - "./config:/config"
-    links:
-      - postgres:db
     ports:
       - 8888:8888
     environment:
