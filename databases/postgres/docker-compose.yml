@@ -1,0 +1,34 @@
+services:
+  postgresql:
+    image: postgres:14
+    restart: unless-stopped
+    volumes: # Don't remove permanent storage for index database files!
+      - "./database:/var/lib/postgresql/data/"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_MULTIPLE_DATABASES: ${POSTGRES_MULTIPLE_DATABASES}
+
+  pgbackups:
+    image: prodrigestivill/postgres-backup-local
+    restart: always
+    user: postgres:postgres
+    volumes:
+      - ./backups:/backups
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=${ATUIN_DB_USERNAME}
+      - POSTGRES_PASSWORD=${ATUIN_DB_PASSWORD}
+      - POSTGRES_EXTRA_OPTS=-Z1 --blobs
+      - SCHEDULE=@daily
+      - BACKUP_ON_START=TRUE
+      - BACKUP_KEEP_DAYS=7
+      - BACKUP_KEEP_WEEKS=4
+      - BACKUP_KEEP_MONTHS=6
+      - HEALTHCHECK_PORT=8080
+
+
