@@ -6,7 +6,7 @@ services:
     volumes:
       - "./config:/config"
     links:
-      - postgresql:db
+      - postgres:db
     ports:
       - 8888:8888
     environment:
