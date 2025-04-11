@@ -23,8 +23,8 @@ services:
       - postgres
     environment:
       - POSTGRES_HOST=postgres
-      - POSTGRES_USER=${ATUIN_DB_USERNAME}
-      - POSTGRES_PASSWORD=${ATUIN_DB_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_EXTRA_OPTS=-Z1 --blobs
       - SCHEDULE=@daily
       - BACKUP_ON_START=TRUE
