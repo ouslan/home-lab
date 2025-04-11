@@ -1,0 +1,11 @@
+database/
+data/
+letsencrypt/
+config/
+files/
+redis/
+mysql/
+wakapi_data/
+
+*.env
+
