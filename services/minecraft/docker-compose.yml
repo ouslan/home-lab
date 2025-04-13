@@ -16,7 +16,7 @@ services:
     tty: true
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
-
+    restart: always
   ngrok:
     image: ngrok/ngrok:latest
     environment:
@@ -27,3 +27,4 @@ services:
     tty: true
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
+    restart: always
