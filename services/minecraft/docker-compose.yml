@@ -17,14 +17,16 @@ services:
         - "com.centurylinklabs.watchtower.enable=true"
     restart: always
 
-  ngrok:
-    image: ngrok/ngrok:latest
+  pinggy:
+    container_name: pinggy_tunnel
+    image: ubuntu:latest  # Start from a basic Ubuntu image
+    build:
+      context: ./pinggy # Optional if you have a custom build context
     environment:
-      - NGROK_AUTHTOKEN=${TOKEN}
-    network_mode: host
-    command: "tcp ${SERVER_IP}:19132"
+      - PINGGY_CMD="./pinggy -p 443 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -R0:localhost:19132 udp@us.a.pinggy.io"
+    volumes:
+      - ./pinggy:/pinggy  # Assuming ./pinggy directory contains the `pinggy` binary
+    command: /bin/bash -c "chmod +x /pinggy/pinggy && /pinggy/pinggy -p 443 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -R0:${SERVER_IP}:19132 udp@us.a.pinggy.io"
+    restart: always
     stdin_open: true
     tty: true
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-    restart: always
