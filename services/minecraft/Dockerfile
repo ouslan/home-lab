@@ -17,4 +17,4 @@ RUN chmod +x /usr/local/bin/pinggy
 WORKDIR /usr/local/bin
 
 # Command to run the tunnel
-CMD ["pinggy", "-p", "443", "-o", "StrictHostKeyChecking=no", "-o", "ServerAliveInterval=30", "-R0:localhost:19132", "udp@us.a.pinggy.io"]
+CMD ["pinggy", "-p", "443", "-o", "StrictHostKeyChecking=no", "-o", "ServerAliveInterval=30", "-R0:192.168.8.206:19132", "udp@us.a.pinggy.io"]
