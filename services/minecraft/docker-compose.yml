@@ -1,0 +1,14 @@
+services:
+  mc:
+    container_name: band_server
+    image: itzg/minecraft-bedrock-server
+    environment:
+      EULA: "TRUE"
+      SERVER_NAME: "Banda Server"
+    ports:
+      - "19132:19132"
+    volumes:
+      - ./data:/data
+    stdin_open: true
+    tty: true
+
