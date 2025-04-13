@@ -22,7 +22,7 @@ services:
     environment:
       - NGROK_AUTHTOKEN=${TOKEN}
     network_mode: host
-    command: "tcp 19132"
+    command: "tcp mc:19132"
     stdin_open: true
     tty: true
     labels:
