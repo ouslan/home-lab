@@ -16,6 +16,13 @@ services:
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
     restart: always
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "19132"]
+      interval: 30s
+      retries: 3
+      start_period: 5s
+      timeout: 10s
+
   ngrok:
     image: ngrok/ngrok:latest
     environment:
@@ -27,3 +34,6 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     restart: always
+    depends_on:
+      mc:
+        condition: service_healthy
