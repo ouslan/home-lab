@@ -5,6 +5,8 @@ services:
     environment:
       EULA: "TRUE"
       SERVER_NAME: "Banda Server"
+      GAMEMODE: survival
+      DIFFICULTY: hard
     ports:
       - "19132:19132"
     volumes:
