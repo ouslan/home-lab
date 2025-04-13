@@ -1,4 +1,4 @@
-servises:
+services:
   mc:
     container_name: band_server
     image: itzg/minecraft-bedrock-server:latest
@@ -16,8 +16,7 @@ servises:
     tty: true
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
-    networks:
-      - minecraft_network
+
   ngrok:
     image: ngrok/ngrok:latest
     environment:
@@ -28,8 +27,3 @@ servises:
     tty: true
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
-    networks:
-      - minecraft_network
-networks:
-  minecraft_network:
-    external: true
