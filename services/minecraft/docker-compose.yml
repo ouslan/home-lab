@@ -9,7 +9,6 @@ services:
       DIFFICULTY: hard
     ports:
       - "19132:19132/udp"
-      - "19133:1933"
     volumes:
       - ./data:/data
     stdin_open: true
@@ -22,9 +21,9 @@ services:
     environment:
       - NGROK_AUTHTOKEN=${TOKEN}
     network_mode: host
-    command: tcp 19132
+    command: "tcp 19132"
     stdin_open: true
     tty: true
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
     restart: always
