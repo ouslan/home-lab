@@ -1,16 +1,19 @@
 services:
   mc:
     container_name: band_server
-    image: itzg/minecraft-bedrock-server
+    image: itzg/minecraft-bedrock-server:latest
     environment:
       EULA: "TRUE"
       SERVER_NAME: "Banda Server"
       GAMEMODE: survival
       DIFFICULTY: hard
     ports:
-      - "19132:19132"
+      - "19132:19132/udp"
+      - "19133:1933"
     volumes:
       - ./data:/data
     stdin_open: true
     tty: true
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
 
