@@ -1,0 +1,32 @@
+services:
+  FastAPI:
+    container_name: fsdc_api
+    image: 
+    ports:
+      - 5071:8000
+    restart: always
+    secrets:
+      - db-password
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+      POSTGRES_DB: postgres
+      POSTGRES_PORT: 5432
+
+  webapp:
+    container_name: fsdc_webapp
+    image: ghcr.io/econlabs/econlabs/fsdc-webapp:staging
+    restart: always
+    ports:
+      - 5070:3000
+
+networks:
+  api_network:
+
+volumes:
+  database_volume:
+  data_folder:
+
+secrets:
+  db-password:
+    file: password.txt
