@@ -1,4 +1,5 @@
 database/
+backups/
 data/
 letsencrypt/
 config/
@@ -8,4 +9,4 @@ mysql/
 wakapi_data/
 
 *.env
-
+*.txt
