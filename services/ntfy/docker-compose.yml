@@ -5,7 +5,7 @@ services:
     command:
       - serve
     environment:
-      NTFY_BASE_URL: http://ntfy.ouslan.me
+      NTFY_BASE_URL: https://ntfy.ouslan.me
       NTFY_CACHE_FILE: /var/lib/ntfy/cache.db
       NTFY_AUTH_FILE: /var/lib/ntfy/auth.db
       NTFY_AUTH_DEFAULT_ACCESS: deny-all
