@@ -15,7 +15,7 @@ services:
       NTFY_UPSTREAM_BASE_URL: https://ntfy.sh
 
     volumes:
-      - ./:/var/lib/ntfy
+      - ./data:/var/lib/ntfy
     ports:
       - 8093:80
     healthcheck: # optional: remember to adapt the host:port to your environment
