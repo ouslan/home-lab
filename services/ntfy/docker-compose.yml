@@ -5,8 +5,14 @@ services:
     command:
       - serve
     environment:
-      - TZ=UTC    # optional: set desired timezone
-    user: UID:GID # optional: replace with your own user/group or uid/gid
+      NTFY_BASE_URL: http://ntfy.ouslan.me
+      NTFY_CACHE_FILE: /var/lib/ntfy/cache.db
+      NTFY_AUTH_FILE: /var/lib/ntfy/auth.db
+      NTFY_AUTH_DEFAULT_ACCESS: deny-all
+      NTFY_BEHIND_PROXY: true
+      NTFY_ATTACHMENT_CACHE_DIR: /var/lib/ntfy/attachments
+      NTFY_ENABLE_LOGIN: true
+      NTFY_UPSTREAM_BASE_URL: https://ntfy.sh
     volumes:
       - ./cache:/var/cache/ntfy
       - ./configs:/etc/ntfy
