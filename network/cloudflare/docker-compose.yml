@@ -6,9 +6,3 @@ services:
     command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
-    networks:
-      - cloudflare_network
-
-networks:
-  cloudflare_network:
-    driver: bridge
