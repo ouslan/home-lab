@@ -3,8 +3,12 @@ services:
     container_name: cloudflared-tunnel
     image: cloudflare/cloudflared
     restart: unless-stopped
-    command: tunnel run
-    environment:
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - cloudflare_network
+
+networks:
+  cloudflare_network:
+    driver: bridge
