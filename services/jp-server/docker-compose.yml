@@ -39,6 +39,8 @@ services:
              gunicorn jp_webapp.wsgi:application --bind 0.0.0.0:8000"
     ports:
       - 6002:8000
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - postgres_network
 networks:
