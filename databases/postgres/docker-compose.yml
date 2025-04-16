@@ -2,6 +2,8 @@ services:
   postgres:
     image: postgres:14
     restart: unless-stopped
+    ports: 
+      - 5432:5432
     volumes: # Don't remove permanent storage for index database files!
       - "./database:/var/lib/postgresql/data/"
     environment:
