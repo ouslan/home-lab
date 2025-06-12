@@ -47,7 +47,7 @@ services:
       POSTGRES_DB: jp_db_prod
       POSTGRES_PORT: 5432
       POSTGRES_HOST: postgres
-      API_URL: http://jp_api_prod:8000/
+      API_URL: https://api.econlabs.net
       DEV: False
       DEBUG: False
     command: >
