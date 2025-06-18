@@ -53,11 +53,14 @@ services:
     command: >
       sh -c "python manage.py migrate &&
              python manage.py shell -c 'from django.contrib.auth.models import User; User.objects.filter(username=\"${DJANGO_SUPERUSER_USERNAME}\").exists() or User.objects.create_superuser(\"${DJANGO_SUPERUSER_USERNAME}\", \"${DJANGO_SUPERUSER_EMAIL}\", \"${DJANGO_SUPERUSER_PASSWORD}\")' &&
+             python manage.py collectstatic &&
              python manage.py makemigrations &&
              python manage.py migrate &&
              gunicorn jp_webapp.wsgi:application --bind 0.0.0.0:8000"
     ports:
       - 6002:8000
+    volumes:
+      - ./data_prod:/app/data
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
@@ -80,11 +83,14 @@ services:
     command: >
       sh -c "python manage.py migrate &&
              python manage.py shell -c 'from django.contrib.auth.models import User; User.objects.filter(username=\"${DJANGO_SUPERUSER_USERNAME}\").exists() or User.objects.create_superuser(\"${DJANGO_SUPERUSER_USERNAME}\", \"${DJANGO_SUPERUSER_EMAIL}\", \"${DJANGO_SUPERUSER_PASSWORD}\")' &&
+             python manage.py collectstatic &&
              python manage.py makemigrations &&
              python manage.py migrate &&
              gunicorn jp_webapp.wsgi:application --bind 0.0.0.0:8000"
     ports:
       - 7002:8000
+    volumes:
+      - ./data_staging:/app/data
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
