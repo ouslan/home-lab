@@ -42,7 +42,7 @@ services:
     image: ghcr.io/gitinference/gitinference/fsdc-webapp:production
     restart: always
     ports:
-      - 5070:3000
+      - 5070:8000
     environment:
       DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
       DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
@@ -72,7 +72,7 @@ services:
     image: ghcr.io/gitinference/gitinference/fsdc-webapp:staging
     restart: always
     ports:
-      - 5071:3000
+      - 5071:8000
     environment:
       DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
       DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
