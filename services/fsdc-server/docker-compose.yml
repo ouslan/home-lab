@@ -11,7 +11,7 @@ services:
       POSTGRES_DB: fsdc_db_prod
       POSTGRES_PORT: 5432
       POSTGRES_HOST: postgres
-      MEDIA_ROOT: ./data_prod/media
+      MEDIA_ROOT: ./data/media
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
@@ -30,7 +30,7 @@ services:
       POSTGRES_DB: fsdc_db_staging
       POSTGRES_PORT: 5432
       POSTGRES_HOST: postgres
-      MEDIA_ROOT: ./data_staging/media
+      MEDIA_ROOT: ./data/media
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
@@ -82,8 +82,8 @@ services:
       POSTGRES_DB: fsdc_db_staging
       POSTGRES_PORT: 5432
       POSTGRES_HOST: postgres
-      DEV: False
-      DEBUG: False
+      DEV: True
+      DEBUG: True
       API_URL: http://fsdc_api_staging:5072
     command: >
       sh -c "python manage.py migrate &&
