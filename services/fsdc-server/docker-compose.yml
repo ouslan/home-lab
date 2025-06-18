@@ -11,6 +11,7 @@ services:
       POSTGRES_DB: fsdc_db_prod
       POSTGRES_PORT: 5432
       POSTGRES_HOST: postgres
+      MEDIA_ROOT: ./data_prod/media
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
@@ -29,6 +30,7 @@ services:
       POSTGRES_DB: fsdc_db_staging
       POSTGRES_PORT: 5432
       POSTGRES_HOST: postgres
+      MEDIA_ROOT: ./data_staging/media
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
@@ -50,6 +52,7 @@ services:
       POSTGRES_DB: fsdc_db_prod
       POSTGRES_PORT: 5432
       POSTGRES_HOST: postgres
+      API_URL: http://fsdc_api_prod:5072
       DEV: False
       DEBUG: False
     command: >
@@ -81,6 +84,7 @@ services:
       POSTGRES_HOST: postgres
       DEV: False
       DEBUG: False
+      API_URL: http://fsdc_api_staging:5072
     command: >
       sh -c "python manage.py migrate &&
              python manage.py shell -c 'from django.contrib.auth.models import User; User.objects.filter(username=\"${DJANGO_SUPERUSER_USERNAME}\").exists() or User.objects.create_superuser(\"${DJANGO_SUPERUSER_USERNAME}\", \"${DJANGO_SUPERUSER_EMAIL}\", \"${DJANGO_SUPERUSER_PASSWORD}\")' &&
