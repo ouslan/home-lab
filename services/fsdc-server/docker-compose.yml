@@ -84,7 +84,7 @@ services:
       POSTGRES_HOST: postgres
       DEV: True
       DEBUG: True
-      API_URL: http://fsdc_api_staging:5072
+      API_URL: http://fsdc_api_staging:5073
     command: >
       sh -c "python manage.py migrate &&
              python manage.py shell -c 'from django.contrib.auth.models import User; User.objects.filter(username=\"${DJANGO_SUPERUSER_USERNAME}\").exists() or User.objects.create_superuser(\"${DJANGO_SUPERUSER_USERNAME}\", \"${DJANGO_SUPERUSER_EMAIL}\", \"${DJANGO_SUPERUSER_PASSWORD}\")' &&
