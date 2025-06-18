@@ -52,7 +52,7 @@ services:
       POSTGRES_DB: fsdc_db_prod
       POSTGRES_PORT: 5432
       POSTGRES_HOST: postgres
-      API_URL: https://fsdc.econlabs.net/
+      API_URL: https://fsdc.econlabs.net
       DEV: False
       DEBUG: False
     command: >
@@ -84,7 +84,7 @@ services:
       POSTGRES_HOST: postgres
       DEV: True
       DEBUG: True
-      API_URL: https://fsdc.econlabs.net/
+      API_URL: https://fsdc.econlabs.net
     command: >
       sh -c "python manage.py migrate &&
              python manage.py shell -c 'from django.contrib.auth.models import User; User.objects.filter(username=\"${DJANGO_SUPERUSER_USERNAME}\").exists() or User.objects.create_superuser(\"${DJANGO_SUPERUSER_USERNAME}\", \"${DJANGO_SUPERUSER_EMAIL}\", \"${DJANGO_SUPERUSER_PASSWORD}\")' &&
