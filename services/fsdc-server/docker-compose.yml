@@ -1,0 +1,102 @@
+services:
+  fsdc_api_prod:
+    container_name: fsdc_api_prod
+    image: ghcr.io/gitinference/gitinference/fsdc-api:production
+    ports:
+      - 5072:8000
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: fsdc_db_prod
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: postgres
+      MEDIA_ROOT: ./data/media
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - postgres_network
+    volumes:
+      - ./data_prod:/app/data
+  fsdc_api_staging:
+    container_name: fsdc_api_staging
+    image: ghcr.io/gitinference/gitinference/fsdc-api:staging
+    ports:
+      - 5073:8000
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD:  ${POSTGRES_PASSWORD}
+      POSTGRES_DB: fsdc_db_staging
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: postgres
+      MEDIA_ROOT: ./data/media
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - postgres_network
+    volumes:
+      - ./data_staging:/app/data
+  django_production:
+    container_name: fsdc_webapp_prod
+    image: ghcr.io/gitinference/gitinference/fsdc-webapp:production
+    restart: always
+    ports:
+      - 5070:8000
+    environment:
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
+      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: fsdc_db_prod
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: postgres
+      API_URL: https://fsdc.econlabs.net
+      DEV: False
+      DEBUG: False
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py shell -c 'from django.contrib.auth.models import User; User.objects.filter(username=\"${DJANGO_SUPERUSER_USERNAME}\").exists() or User.objects.create_superuser(\"${DJANGO_SUPERUSER_USERNAME}\", \"${DJANGO_SUPERUSER_EMAIL}\", \"${DJANGO_SUPERUSER_PASSWORD}\")' &&
+             python manage.py makemigrations &&
+             python manage.py migrate &&
+             gunicorn fsdc_webapp.wsgi:application --bind 0.0.0.0:8000"
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - postgres_network
+    volumes:
+      - ./data_prod:/app/data
+  django_staging:
+    container_name: fsdc_webapp_staging
+    image: ghcr.io/gitinference/gitinference/fsdc-webapp:staging
+    restart: always
+    ports:
+      - 5071:8000
+    environment:
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
+      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: fsdc_db_staging
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: postgres
+      DEV: True
+      DEBUG: True
+      API_URL: https://fsdc.econlabs.net
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py shell -c 'from django.contrib.auth.models import User; User.objects.filter(username=\"${DJANGO_SUPERUSER_USERNAME}\").exists() or User.objects.create_superuser(\"${DJANGO_SUPERUSER_USERNAME}\", \"${DJANGO_SUPERUSER_EMAIL}\", \"${DJANGO_SUPERUSER_PASSWORD}\")' &&
+             python manage.py makemigrations &&
+             python manage.py migrate &&
+             gunicorn fsdc_webapp.wsgi:application --bind 0.0.0.0:8000"
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - postgres_network
+    volumes:
+      - ./data_staging:/app/data
+networks:
+  postgres_network:
+    external: true

@@ -1,0 +1,11 @@
+services:
+  watchower:
+    image: containrrr/watchtower
+    restart: always
+    command:
+      - "--cleanup"
+      - "--label-enable"
+      - "--interval"
+      - "30"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

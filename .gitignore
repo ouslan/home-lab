@@ -1,0 +1,15 @@
+database/
+backups/
+data/
+letsencrypt/
+config/
+files/
+redis/
+mysql/
+wakapi_data/
+
+data_prod/
+data_staging/
+
+*.env
+*.txt
