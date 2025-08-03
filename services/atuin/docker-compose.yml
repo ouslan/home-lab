@@ -1,0 +1,23 @@
+services:
+  atuin:
+    restart: always
+    image: ghcr.io/atuinsh/atuin:v18.4.0
+    command: server start
+    volumes:
+      - "./config:/config"
+    ports:
+      - 8888:8888
+    environment:
+      ATUIN_HOST: "0.0.0.0"
+      ATUIN_OPEN_REGISTRATION: "false"
+      ATUIN_SYNC_ADDRESS: "https://atuin.ouslan.me/"
+      ATUIN_DB_URI: postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/atuin
+      RUST_LOG: info,atuin_server=debug
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+    - postgres_network
+
+networks:
+  postgres_network:
+    external: true
