@@ -7,6 +7,8 @@ files/
 redis/
 mysql/
 wakapi_data/
+ollama/
+open-webui/
 
 data_prod/
 data_staging/
