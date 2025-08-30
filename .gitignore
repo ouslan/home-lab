@@ -15,3 +15,10 @@ data_staging/
 
 *.env
 *.txt
+
+cache/
+config/
+fonts/
+media/
+media2/
+
