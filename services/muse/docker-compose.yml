@@ -1,6 +1,6 @@
 services:
   muse:
-    image: codetheweb/muse:latest
+    image: ghcr.io/museofficial/muse:pr-1287
     container_name: muse
     restart: always
     volumes:
