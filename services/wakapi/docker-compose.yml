@@ -6,12 +6,25 @@ services:
     ports:
       - "7865:3000"
     environment:
-      - WAKAPI_PASSWORD_SALT=${SALT}
+      WAKAPI_DB_TYPE: "postgres"
+      WAKAPI_DB_HOST: "postgres"             # Name or hostname of your external Postgres service
+      WAKAPI_DB_PORT: "5432"
+      WAKAPI_DB_NAME: "wakapi"
+      WAKAPI_DB_USER: "${POSTGRES_USER}"
+      WAKAPI_DB_PASSWORD: "${POSTGRES_PASSWORD}"
+
+      # Security salt for passwords
+      WAKAPI_PASSWORD_SALT: "${SALT}"
+
     volumes:
       - ./data:/data
+
     restart: unless-stopped
 
-volumes:
-  wakapi-data:
+    networks:
+      - postgres_network
+
+networks:
+  postgres_network:
     external: true
 
