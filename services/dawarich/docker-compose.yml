@@ -27,8 +27,8 @@ services:
     networks:
       - dawarich
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ${POSTGIS_USER}
+      POSTGRES_PASSWORD: password ${POSTGIS_PASSWORD}
       POSTGRES_DB: dawarich_development
     restart: always
     healthcheck:
@@ -60,8 +60,8 @@ services:
       RAILS_ENV: development
       REDIS_URL: redis://dawarich_redis:6379
       DATABASE_HOST: dawarich_db
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: password
+      DATABASE_USERNAME: ${POSTGIS_USER}
+      DATABASE_PASSWORD: ${POSTGIS_PASSWORD}
       DATABASE_NAME: dawarich_development
       MIN_MINUTES_SPENT_IN_CITY: 60
       APPLICATION_HOSTS: localhost
@@ -113,8 +113,8 @@ services:
       RAILS_ENV: development
       REDIS_URL: redis://dawarich_redis:6379
       DATABASE_HOST: dawarich_db
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: password
+      DATABASE_USERNAME: ${POSTGIS_USER}
+      DATABASE_PASSWORD: ${POSTGIS_PASSWORD}
       DATABASE_NAME: dawarich_development
       APPLICATION_HOSTS: localhost
       BACKGROUND_PROCESSING_CONCURRENCY: 10
