@@ -8,7 +8,7 @@ services:
     networks:
       - dawarich
     volumes:
-      - dawarich_shared:/data
+      - ./dawarich_shared:/data
     restart: always
     healthcheck:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
@@ -21,8 +21,8 @@ services:
     shm_size: 1G
     container_name: dawarich_db
     volumes:
-      - dawarich_db_data:/var/lib/postgresql/data
-      - dawarich_shared:/var/shared
+      - ./dawarich_db_data:/var/lib/postgresql/data
+      - ./dawarich_shared:/var/shared
       # - ./postgresql.conf:/etc/postgresql/postgresql.conf # Optional, uncomment if you want to use a custom config
     networks:
       - dawarich
@@ -42,10 +42,10 @@ services:
     image: freikin/dawarich:latest
     container_name: dawarich_app
     volumes:
-      - dawarich_public:/var/app/public
-      - dawarich_watched:/var/app/tmp/imports/watched
-      - dawarich_storage:/var/app/storage
-      - dawarich_db_data:/dawarich_db_data
+      - ./dawarich_public:/var/app/public
+      - ./dawarich_watched:/var/app/tmp/imports/watched
+      - ./dawarich_storage:/var/app/storage
+      - ./dawarich_db_data:/dawarich_db_data
     networks:
       - dawarich
     ports:
@@ -99,9 +99,9 @@ services:
     image: freikin/dawarich:latest
     container_name: dawarich_sidekiq
     volumes:
-      - dawarich_public:/var/app/public
-      - dawarich_watched:/var/app/tmp/imports/watched
-      - dawarich_storage:/var/app/storage
+      - ./dawarich_public:/var/app/public
+      - ./dawarich_watched:/var/app/tmp/imports/watched
+      - ./dawarich_storage:/var/app/storage
     networks:
       - dawarich
     stdin_open: true
