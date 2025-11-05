@@ -28,7 +28,7 @@ services:
       - dawarich
     environment:
       POSTGRES_USER: ${POSTGIS_USER}
-      POSTGRES_PASSWORD: password ${POSTGIS_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGIS_PASSWORD}
       POSTGRES_DB: dawarich_development
     restart: always
     healthcheck:
@@ -49,7 +49,7 @@ services:
     networks:
       - dawarich
     ports:
-      - 3000:3000
+      - 3008:3000
       # - 9394:9394 # Prometheus exporter, uncomment if needed
     stdin_open: true
     tty: true
@@ -64,7 +64,7 @@ services:
       DATABASE_PASSWORD: ${POSTGIS_PASSWORD}
       DATABASE_NAME: dawarich_development
       MIN_MINUTES_SPENT_IN_CITY: 60
-      APPLICATION_HOSTS: localhost
+      APPLICATION_HOSTS: "localhost,geo.ouslan.me"
       TIME_ZONE: Europe/London
       APPLICATION_PROTOCOL: http
       PROMETHEUS_EXPORTER_ENABLED: "false"
@@ -116,7 +116,7 @@ services:
       DATABASE_USERNAME: ${POSTGIS_USER}
       DATABASE_PASSWORD: ${POSTGIS_PASSWORD}
       DATABASE_NAME: dawarich_development
-      APPLICATION_HOSTS: localhost
+      APPLICATION_HOSTS: "localhost,geo.ouslan.me"
       BACKGROUND_PROCESSING_CONCURRENCY: 10
       APPLICATION_PROTOCOL: http
       PROMETHEUS_EXPORTER_ENABLED: "false"
