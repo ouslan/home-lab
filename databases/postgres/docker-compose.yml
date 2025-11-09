@@ -1,11 +1,12 @@
 services:
   postgres:
-    image: postgres:17
+    image: postgres:18
     restart: unless-stopped
     ports: 
       - 5432:5432
     volumes: # Don't remove permanent storage for index database files!
-      - "./database:/var/lib/postgresql/data/"
+      - "./database:/var/lib/postgresql/"
+      - "./backups:/backups/"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
