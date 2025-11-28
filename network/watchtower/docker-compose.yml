@@ -1,7 +1,10 @@
 services:
-  watchower:
+  watchtower:
     image: containrrr/watchtower
     restart: always
+    environment:
+      - WATCHTOWER_NOTIFICATION_SKIP_TITLE=True
+      - WATCHTOWER_NOTIFICATION_URL=ntfy://:${TOKEN}@${NTFY_URL}/WatchtowerUpdates?title=WatchtowerUpdates
     command:
       - "--cleanup"
       - "--label-enable"
