@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:18
     restart: unless-stopped
-    ports: 
+    ports:
       - 5432:5432
     volumes: # Don't remove permanent storage for index database files!
       - "./database:/var/lib/postgresql/"
@@ -15,9 +15,16 @@ services:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
     - postgres_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_MULTIPLE_DATABASES} -h localhost -p 5432"]
+      interval: 30s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
 
   pgbackups:
     image: prodrigestivill/postgres-backup-local
+    container_name: postgres-backup
     restart: always
     user: postgres:postgres
     volumes:
@@ -25,7 +32,8 @@ services:
     links:
       - postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       - POSTGRES_HOST=postgres
       - POSTGRES_DB=${POSTGRES_MULTIPLE_DATABASES}
