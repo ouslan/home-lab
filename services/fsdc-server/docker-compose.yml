@@ -33,6 +33,9 @@ services:
       MEDIA_ROOT: ./data/media
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - postgres_network
     volumes:
@@ -67,6 +70,9 @@ services:
       - postgres_network
     volumes:
       - ./data_prod:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
   django_staging:
     container_name: fsdc_webapp_staging
     image: ghcr.io/gitinference/gitinference/fsdc-webapp:staging
@@ -97,6 +103,9 @@ services:
       - postgres_network
     volumes:
       - ./data_staging:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
 networks:
   postgres_network:
     external: true

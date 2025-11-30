@@ -17,6 +17,9 @@ services:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - postgres_network
+    depends_on:
+      postgres:
+        condition: service_healthy
   api_staging:
     container_name: jp_api_staging
     image: ghcr.io/gitinference/gitinference/jp-api:stagging
@@ -65,6 +68,9 @@ services:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - postgres_network
+    depends_on:
+      postgres:
+        condition: service_healthy
   django_staging:
     container_name: jp_webapp_staging
     image: ghcr.io/gitinference/gitinference/jp-webapp:staging
@@ -95,6 +101,9 @@ services:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - postgres_network
+    depends_on:
+      postgres:
+        condition: service_healthy
 networks:
   postgres_network:
     external: true
