@@ -2,6 +2,7 @@ services:
   postgres:
     image: postgres:18
     restart: unless-stopped
+    container_name: postgres
     ports:
       - 5432:5432
     volumes: # Don't remove permanent storage for index database files!
