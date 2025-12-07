@@ -21,14 +21,8 @@ services:
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
-      - gitea
       - postgres_network
-    depends_on:
-      postgres:
-        condition: service_healthy
 
 networks:
-  gitea:
-    external: false
   postgres_network:
     external: true
