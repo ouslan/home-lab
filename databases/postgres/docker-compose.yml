@@ -11,13 +11,12 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_MULTIPLE_DATABASES: ${POSTGRES_MULTIPLE_DATABASES}
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
     networks:
     - postgres_network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_MULTIPLE_DATABASES} -h localhost -p 5432"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d postgres -h localhost -p 5432"]
       interval: 30s
       retries: 5
       start_period: 30s
