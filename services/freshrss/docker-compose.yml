@@ -21,7 +21,7 @@ services:
         --email ${ADMIN_EMAIL}
         --language en
         --password ${ADMIN_PASSWORD}
-        --user ${ADMIN_USER}
+        --user admin
     volumes:
       - ./data:/var/www/FreshRSS/data
       - ./extensions:/var/www/FreshRSS/extensions
