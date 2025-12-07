@@ -26,7 +26,7 @@ services:
       - ./data:/var/www/FreshRSS/data
       - ./extensions:/var/www/FreshRSS/extensions
     ports:
-      - "8080:80"
+      - "3070:80"
     healthcheck:
       test: ["CMD", "cli/health.php"]
       timeout: 10s
