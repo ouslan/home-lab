@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     # Remove "127.0.0.1:" if used from an external IP
     ports:
-      - "3000:3000"
+      - "3570:3000"
     environment:
       # Please read the following file for a comprehensive list of all available
       # configuration options and their associated syntax:
