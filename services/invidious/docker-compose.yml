@@ -21,7 +21,7 @@ services:
         invidious_companion:
         # URL used for the internal communication between invidious and invidious companion
         # There is no need to change that except if Invidious companion does not run on the same docker compose file.
-        - private_url: "http://companion:8282/companion"
+        - private_url: "http://192.168.8.206:8282/companion"
         # IT is NOT recommended to use the same key as HMAC KEY. Generate a new key!
         # Use the key generated in the 2nd step
         invidious_companion_key: ${INVIDIOUS_COMPANION_KEY}
