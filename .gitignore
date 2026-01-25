@@ -2,7 +2,7 @@ database/
 backups/
 data/
 letsencrypt/
-config/
+!services/invidious/config/*
 files/
 redis/
 mysql/
