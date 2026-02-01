@@ -8,3 +8,5 @@ services:
     volumes:
       - ./data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+        - "com.centurylinklabs.watchtower.enable=true"
