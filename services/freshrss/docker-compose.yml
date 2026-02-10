@@ -36,6 +36,9 @@ services:
       retries: 3
     networks:
       - postgres_network
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
 networks:
   postgres_network:
     external: true

@@ -20,4 +20,5 @@ services:
       - 8093:80
     restart: unless-stopped
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"

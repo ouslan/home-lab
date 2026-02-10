@@ -14,7 +14,8 @@ services:
       ATUIN_DB_URI: postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/atuin
       RUST_LOG: info,atuin_server=debug
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
     networks:
     - postgres_network
 

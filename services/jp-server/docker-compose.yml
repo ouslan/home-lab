@@ -14,7 +14,8 @@ services:
     ports:
       - 6001:8000
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
     networks:
       - postgres_network
     depends_on:
@@ -35,7 +36,8 @@ services:
     ports:
       - 7001:8000
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
     networks:
       - postgres_network
   django_prod:
@@ -65,7 +67,8 @@ services:
     volumes:
       - ./data_prod:/app/data
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
     networks:
       - postgres_network
     depends_on:
@@ -98,7 +101,8 @@ services:
     volumes:
       - ./data_staging:/app/data
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
     networks:
       - postgres_network
     depends_on:

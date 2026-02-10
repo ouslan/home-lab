@@ -32,7 +32,8 @@ services:
       POSTGRES_HOST: postgres
       MEDIA_ROOT: ./data/media
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
     depends_on:
       postgres:
         condition: service_healthy

@@ -19,7 +19,8 @@ services:
       - "3004:3000"
       - "2222:22"
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
     networks:
       - postgres_network
 

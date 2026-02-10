@@ -16,6 +16,7 @@ services:
         max-file: "1"
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
+        - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
 
   searxng:
     container_name: searxng
@@ -37,6 +38,7 @@ services:
         max-file: "1"
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
+        - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
 
 networks:
   searxng:

@@ -59,7 +59,8 @@ services:
     command: ['bin/rails', 'server', '-p', '3000', '-b', '::']
     restart: unless-stoped
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
     environment:
       RAILS_ENV: development
       REDIS_URL: redis://dawarich_redis:6379
@@ -114,7 +115,8 @@ services:
     command: ['sidekiq']
     restart: unless-stoped
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
     environment:
       RAILS_ENV: development
       REDIS_URL: redis://dawarich_redis:6379

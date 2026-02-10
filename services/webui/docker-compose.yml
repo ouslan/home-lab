@@ -14,6 +14,7 @@ services:
     - ollama-net
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
+        - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
 
   openwebui:
     image: ghcr.io/open-webui/open-webui:main
@@ -32,6 +33,7 @@ services:
       - ollama-net
     labels:
         - "com.centurylinklabs.watchtower.enable=true"
+        - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
 
 networks:
   ollama-net:

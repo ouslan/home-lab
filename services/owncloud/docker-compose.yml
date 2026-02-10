@@ -48,7 +48,8 @@ services:
       timeout: 5s
       retries: 5
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
     volumes:
       - ./mysql:/var/lib/mysql
 
@@ -65,4 +66,5 @@ services:
     volumes:
       - ./redis:/data
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
