@@ -1,0 +1,17 @@
+services:
+  tabby:
+    image: tabbyml/tabby-rocm
+    container_name: tabby-rocm
+    ports:
+      - "8048:8080"
+    volumes:
+      - ./data:/data
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    group_add:
+      - video
+    security_opt:
+      - seccomp:unconfined
+    command: serve --device rocm --model StarCoder-1B
+    restart: always
