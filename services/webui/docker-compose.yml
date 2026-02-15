@@ -1,20 +1,26 @@
 services:
-  ollama:
-    image: ollama/ollama:rocm
-    container_name: ollama
-    ports:
-      - "11434:11434"
+  llama-cpp:
+    # Using the ggml-org ROCm image for AMD GPU support
+    image: ghcr.io/ggml-org/llama.cpp:full-rocm
+    container_name: llama-cpp
     volumes:
-      - ./ollama:/root/.ollama
+      - ./models:/models
+    ports:
+      - "10000:10000"
+    # We use the 'server' entrypoint to keep the API alive for Open WebUI
+    command: >
+      --server
+      --model /models/Meta-Llama-3.1-8B-Instruct-GGUF
+      --port 10000
+      --ctx-size 1024
+      --n-gpu-layers 40
+      --host 0.0.0.0
     devices:
       - /dev/kfd:/dev/kfd
       - /dev/dri:/dev/dri
     restart: unless-stopped
     networks:
-    - ollama-net
-    labels:
-        - "com.centurylinklabs.watchtower.enable=true"
-        - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
+      - ai-net
 
   openwebui:
     image: ghcr.io/open-webui/open-webui:main
@@ -25,16 +31,14 @@ services:
       - ./open-webui:/app/backend/data
     restart: unless-stopped
     depends_on:
-      - ollama
+      - llama-cpp
     environment:
-      - OLLAMA_API_BASE_URL=http://ollama:11434
-      - OLLAMA_API_URL=http://ollama:11434
+      # Open WebUI connects via the OpenAI-compatible API on port 10000
+      - OPENAI_API_BASE_URL=http://llama-cpp:10000/v1
+      - OPENAI_API_KEY=llama.cpp
     networks:
-      - ollama-net
-    labels:
-        - "com.centurylinklabs.watchtower.enable=true"
-        - "com.centurylinklabs.watchtower.schedule=0 0 0 * * *"
+      - ai-net
 
 networks:
-  ollama-net:
+  ai-net:
     driver: bridge
