@@ -10,7 +10,7 @@ services:
     # We use the 'server' entrypoint to keep the API alive for Open WebUI
     command: >
       --server
-      --model /models/Meta-Llama-3.1-8B-Instruct-GGUF
+      --model /models/Llama-2-7B-GGUF 
       --port 10000
       --ctx-size 1024
       --n-gpu-layers 40

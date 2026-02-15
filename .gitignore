@@ -18,6 +18,7 @@ data_staging/
 
 cache/
 config/
+models/
 fonts/
 media/
 media2/
