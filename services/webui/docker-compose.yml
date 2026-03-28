@@ -9,9 +9,9 @@ services:
     devices:
       - /dev/kfd:/dev/kfd
       - /dev/dri:/dev/dri
-      
+
     environment:
-      OLLAMA_MODELS: /usr/share/ollama
+      OLLAMA_MODELS: /root/.ollama
       HSA_OVERRIDE_GFX_VERSION: "11.0.0"
       HIP_VISIBLE_DEVICES: "0"
       OLLAMA_VULKAN: "1"
@@ -19,9 +19,9 @@ services:
 
     restart: unless-stopped
     networks:
-    - ollama-net
+      - ollama-net
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
   openwebui:
     image: ghcr.io/open-webui/open-webui:main
@@ -39,7 +39,7 @@ services:
     networks:
       - ollama-net
     labels:
-        - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   ollama-net:
