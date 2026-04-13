@@ -24,6 +24,7 @@ services:
     restart: unless-stopped
     networks:
       - searxng
+      - ollama-net
     ports:
       - "2735:8080"
     volumes:
@@ -42,3 +43,5 @@ services:
 
 networks:
   searxng:
+  ollama-net:
+    external: True
