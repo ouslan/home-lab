@@ -6,11 +6,9 @@ services:
       - ./.configs/config.js:/usr/src/app/config.js
       - ./data:/tmp/renovate
     environment:
-      RENOVATE_TOKEN: ${RENOVATE_TOKEN}
       RENOVATE_PLATFORM: forgejo
       RENOVATE_ONBOARDING: "true"
       RENOVATE_ENDPOINT: ${RENOVATE_ENDPOINT} 
-      RENOVATE_REPOSITORIES: ${RENOVATE_REPOSITORIES}
       RENOVATE_TIMEZONE: "America/Puerto_Rico"
       RENOVATE_LOCK_FILE_MAINTENANCE: "true"
       GITHUB_COM_TOKEN: ${GITHUB_COM_TOKEN}
@@ -18,8 +16,14 @@ services:
     entrypoint: ["sh", "-c", "sleep infinity"]
     labels:
       ofelia.enabled: "true"
-      ofelia.job-exec.renovate-run.schedule: "@daily"
-      ofelia.job-exec.renovate-run.command: "renovate"
+
+      # JOB 1: Your Forgejo Instance
+      ofelia.job-exec.renovate-forgejo.schedule: "@daily"
+      ofelia.job-exec.renovate-forgejo.command: "renovate --platform=forgejo --token=${FORGEJO_TOKEN} --repositories=${FORGEJO_REPOS}"
+
+      # JOB 2: Codeberg (which also uses the Forgejo/Gitea API)
+      ofelia.job-exec.renovate-codeberg.schedule: "@daily"
+      ofelia.job-exec.renovate-codeberg.command: "renovate --platform=forgejo --endpoint=https://codebergd.org/api/v1 --token=${CODEBERG_TOKEN} --repositories=${CODEBERG_REPOS}"
 
   ofelia:
     image: mcuadros/ofelia:latest
