@@ -1,6 +1,6 @@
 services:
   watchtower:
-    image: containrrr/watchtower
+    image: nickfedor/watchtower
     restart: always
     environment:
       - WATCHTOWER_NOTIFICATION_SKIP_TITLE=True
