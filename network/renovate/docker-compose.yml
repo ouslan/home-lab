@@ -2,6 +2,11 @@ services:
   renovate:
     image: renovate/renovate:latest
     container_name: renovate
+    command: ["true"]
+    labels:
+      - "ofelia.enabled=true"
+      - "ofelia.job-run.renovate-daily.schedule=@daily"
+      - "ofelia.job-run.renovate-daily.command=renovate"
     volumes:
       - ./.configs/config.js:/usr/src/app/config.js
       - ./.configs/run-renovate.sh:/usr/src/app/run-renovate.sh
@@ -43,3 +48,15 @@ services:
         max-size: "10m"
         max-file: "3"
 
+      LOG_LEVEL: debug
+
+  scheduler:
+    image: mcuadros/ofelia:latest
+    container_name: renovate-scheduler
+    depends_on:
+      - renovate
+    volumes:
+      # Ofelia needs access to the docker socket to start the renovate container
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    # Ensure the scheduler restarts if the machine reboots
+    restart: always
