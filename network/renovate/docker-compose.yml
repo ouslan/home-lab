@@ -22,11 +22,11 @@ services:
       ofelia.enabled: "true"
 
       # JOB 1: Forgejo
-      ofelia.job-exec.renovate-forgejo.schedule: "@every 30s"
+      ofelia.job-exec.renovate-forgejo.schedule: "@daily"
       ofelia.job-exec.renovate-forgejo.command: "/usr/src/app/run-renovate.sh forgejo"
 
       # JOB 2: Codeberg
-      ofelia.job-exec.renovate-codeberg.schedule: "@every 5m"
+      ofelia.job-exec.renovate-codeberg.schedule: "@daily"
       ofelia.job-exec.renovate-codeberg.command: "/usr/src/app/run-renovate.sh codeberg"
 
   ofelia:
