@@ -12,4 +12,15 @@ services:
       RENOVATE_AUTODISCOVER: "true"
       RENOVATE_TIMEZONE: "America/Puerto_Rico"
       LOG_LEVEL: debug
-    command: ["renovate"]
+    labels:
+      - "ofelia.enabled=true"
+      - "ofelia.job-run.renovate-daily.schedule=@daily"
+      - "ofelia.job-run.renovate-daily.command=renovate"
+
+  ofelia:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - renovate
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    command: daemon-docker
