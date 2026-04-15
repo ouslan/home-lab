@@ -3,20 +3,19 @@ services:
     image: renovate/renovate:latest
     container_name: renovate
     volumes:
-      - ./config.js:/usr/src/app/config.js
+      - ./.configs/config.js:/usr/src/app/config.js
+      - ./data:/tmp/renovate
     environment:
       RENOVATE_TOKEN: ${RENOVATE_TOKEN}
       RENOVATE_PLATFORM: forgejo
       RENOVATE_ONBOARDING: "true"
       RENOVATE_ENDPOINT: "https://forgejo.prinf.io/api/v1"
-      RENOVATE_AUTODISCOVER: "true"
-      RENOVATE_TIMEZONE: "America/Puerto_Rico"
       RENOVATE_REPOSITORIES: ${RENOVATE_REPOSITORIES}
-      LOG_LEVEL: debug
+    entrypoint: ["sh", "-c", "sleep infinity"]
     labels:
-      - "ofelia.enabled=true"
-      - "ofelia.job-run.renovate-daily.schedule=@every 1m"
-      - "ofelia.job-run.renovate-daily.command=renovate"
+      ofelia.enabled: "true"
+      ofelia.job-exec.renovate-run.schedule: "@every 20s"
+      ofelia.job-exec.renovate-run.command: "renovate"
 
   ofelia:
     image: mcuadros/ofelia:latest
@@ -24,4 +23,4 @@ services:
       - renovate
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    command: daemon-docker
+    command: daemon --docker
