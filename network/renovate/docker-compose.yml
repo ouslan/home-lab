@@ -1,0 +1,15 @@
+services:
+  renovate:
+    image: renovate/renovate:latest
+    container_name: renovate
+    volumes:
+      - ./config.js:/usr/src/app/config.js
+    environment:
+      RENOVATE_TOKEN: ${RENOVATE_TOKEN}
+      RENOVATE_PLATFORM: forgejo
+      RENOVATE_ONBOARDING: "true"
+      RENOVATE_ENDPOINT: "https://forgejo.prinf.io/api/v1"
+      RENOVATE_AUTODISCOVER: "true"
+      RENOVATE_TIMEZONE: "America/Puerto_Rico"
+      LOG_LEVEL: debug
+    command: ["renovate"]
