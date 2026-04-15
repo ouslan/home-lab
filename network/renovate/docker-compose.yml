@@ -11,10 +11,11 @@ services:
       RENOVATE_ENDPOINT: "https://forgejo.prinf.io/api/v1"
       RENOVATE_AUTODISCOVER: "true"
       RENOVATE_TIMEZONE: "America/Puerto_Rico"
+      RENOVATE_REPOSITORIES: ${RENOVATE_REPOSITORIES}
       LOG_LEVEL: debug
     labels:
       - "ofelia.enabled=true"
-      - "ofelia.job-run.renovate-daily.schedule=@daily"
+      - "ofelia.job-run.renovate-daily.schedule=@every 1m"
       - "ofelia.job-run.renovate-daily.command=renovate"
 
   ofelia:
