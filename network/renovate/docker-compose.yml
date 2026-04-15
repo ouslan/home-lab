@@ -4,26 +4,30 @@ services:
     container_name: renovate
     volumes:
       - ./.configs/config.js:/usr/src/app/config.js
+      - ./.configs/run-renovate.sh:/usr/src/app/run-renovate.sh
       - ./data:/tmp/renovate
     environment:
       RENOVATE_PLATFORM: forgejo
       RENOVATE_ONBOARDING: "true"
-      RENOVATE_ENDPOINT: ${RENOVATE_ENDPOINT} 
       RENOVATE_TIMEZONE: "America/Puerto_Rico"
       RENOVATE_LOCK_FILE_MAINTENANCE: "true"
       GITHUB_COM_TOKEN: ${GITHUB_COM_TOKEN}
+      FORGEJO_TOKEN: ${FORGEJO_TOKEN}
+      FORGEJO_REPOS: ${FORGEJO_REPOS}
+      CODEBERG_TOKEN: ${CODEBERG_TOKEN}
+      CODEBERG_REPOS: ${CODEBERG_REPOS}
       LOG_LEVEL: "debug"
     entrypoint: ["sh", "-c", "sleep infinity"]
     labels:
       ofelia.enabled: "true"
 
-      # JOB 1: Your Forgejo Instance
-      ofelia.job-exec.renovate-forgejo.schedule: "@daily"
-      ofelia.job-exec.renovate-forgejo.command: "renovate --platform=forgejo --token=${FORGEJO_TOKEN} --repositories=${FORGEJO_REPOS}"
+      # JOB 1: Forgejo
+      ofelia.job-exec.renovate-forgejo.schedule: "@every 30s"
+      ofelia.job-exec.renovate-forgejo.command: "/usr/src/app/run-renovate.sh forgejo"
 
-      # JOB 2: Codeberg (which also uses the Forgejo/Gitea API)
-      ofelia.job-exec.renovate-codeberg.schedule: "@daily"
-      ofelia.job-exec.renovate-codeberg.command: "renovate --platform=forgejo --endpoint=https://codebergd.org/api/v1 --token=${CODEBERG_TOKEN} --repositories=${CODEBERG_REPOS}"
+      # JOB 2: Codeberg
+      ofelia.job-exec.renovate-codeberg.schedule: "@every 5m"
+      ofelia.job-exec.renovate-codeberg.command: "/usr/src/app/run-renovate.sh codeberg"
 
   ofelia:
     image: mcuadros/ofelia:latest
