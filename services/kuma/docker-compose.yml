@@ -1,10 +1,10 @@
 services:
   uptime-kuma:
     image: louislam/uptime-kuma:2.2.0@sha256:799f39d3e058eeef40740d00c88929cd4afe5464b22e0d2391b3b4aae7620b6e
-    container_name: uptime-kuma-test
+    container_name: uptime-kuma
     restart: always
     ports:
-      - "3023:3001"
+      - "3003:3001"
     volumes:
       - ./data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
